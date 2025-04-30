@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dashboard</title>
+</head>
+<body>
+  <h2>Welcome to your dashboard</h2>
+  <a href="/add">Add Account</a> | <a href="/logout">Logout</a>
+  <ul>
+    {% for account in accounts %}
+      <li>{{ account.nickname }} ({{ account.type }}): ${{ account.balance }}</li>
+    {% endfor %}
+  </ul>
+</body>
+</html>

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login</title>
+</head>
+<body>
+  <h1>SumUp your finances. Simplify your future.</h1>
+  {% if error %}
+    <p style="color:red">{{ error }}</p>
+  {% endif %}
+  <form method="POST">
+    Username: <input name="username"><br>
+    Password: <input name="password" type="password"><br>
+    <button type="submit">Login</button>
+  </form>
+</body>
+</html>
