@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <title>Edit Profile</title>
+</head>
+<body>
+  <h2>Edit Profile</h2>
+  {% if message %}
+    <p style="color: green;">{{ message }}</p>
+  {% endif %}
+  <form class=edit-account method="POST">
+    <p>Here, you may edit the name that appears at the top of your dashboard, or change your passsword.</p>
+    Name: <input name="name" value="{{ name }}"><br>
+    Password: <input type="password" name="password"><br>
+    <button type="submit">Save Changes</button>
+  </form>
+  <form class=center-button method="POST" action="/delete-profile">
+    <button type="submit" style="color:red">Delete My Account</button>
+    <p style="color:red">Deleting your account cannot be undone. Please proceed with caution.</p>
+  </form>
+  <br>
+  <div class="center-button">
+  <a href="/dashboard"><button>Cancel</button></a>
+  </div>
+</body>
+</html>

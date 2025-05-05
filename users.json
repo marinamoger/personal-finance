@@ -1,4 +1,1 @@
-{
-    "testuser": "password123"
-  }
-  
+{"testuser": {"name": "Test User", "password": "password123"}}

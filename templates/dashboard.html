@@ -1,15 +1,100 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <!-- Link to external CSS stylesheet -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
   <title>Dashboard</title>
 </head>
 <body>
-  <h2>Welcome to your dashboard</h2>
-  <a href="/add">Add Account</a> | <a href="/logout">Logout</a>
-  <ul>
+
+  <!-- Personalized dashboard header -->
+  <h2>{{ name }}'s Dashboard</h2>
+  <h3>Add all of your accounts to see your full financial picture!</h3>
+
+  <!-- Dropdown form to show/hide balances -->
+  <form class=edit-account method="GET" >
+    <label for="show_balance">Show Balances:</label>
+    <select name="show_balance" onchange="this.form.submit()">
+      <!-- Automatically select the current option -->
+      <option value="yes" {% if show_balance == 'yes' %}selected{% endif %}>Yes</option>
+      <option value="no" {% if show_balance == 'no' %}selected{% endif %}>No</option>
+    </select>
+  </form>
+
+  <!-- Centered Add Account button -->
+  <div class="center-button">
+    <a href="/add"><button type="button">Add Account</button></a>
+  </div>
+
+  <!-- Form to select multiple accounts -->
+<form class=delete-selected method="POST" action="/delete-selected">
+  <div class="center-button" style="margin-top: 20px;">
+    <h4>Select accounts to delete:</h4>
+
+    <!-- Checkbox list (not inside account cards) -->
     {% for account in accounts %}
-      <li>{{ account.nickname }} ({{ account.type }}): ${{ account.balance }}</li>
+      <div>
+        <label>
+          <input type="checkbox" name="selected_accounts" value="{{ account.nickname }}">
+          {{ account.nickname }}
+        </label>
+      </div>
     {% endfor %}
-  </ul>
+
+    <!-- Delete Selected Button -->
+    <button type="submit" class="delete-button" style="margin-top: 10px;">Delete Selected</button>
+  </div>
+</form>
+
+  <!-- Container for all account cards -->
+  <div class="account-container">
+    {% for account in accounts %}
+      <div class="account-card">
+        <!-- Account nickname -->
+        <h3 class="account-nickname">{{ account.nickname }}</h3>
+        <!-- Account type -->
+        <p class="account-type">{{ account.type }}</p>
+
+        <!-- Conditionally show or hide balance based on dropdown -->
+        {% if show_balance == 'yes' %}
+          <p class="account-balance">${{ account.balance }}</p>
+        {% else %}
+          <p class="account-balance">••••</p>
+        {% endif %}
+        
+        <p style="color: red; font-size: 0.8rem;">Deleting this account cannot be undone!</p>
+
+        <!-- Edit and Delete buttons for this account -->
+        <div class="account-buttons">
+          <!-- Edit account form (GET) -->
+          <form method="GET" action="/edit-account">
+            <input type="hidden" name="nickname" value="{{ account.nickname }}">
+            <button type="submit" class="edit-button">Edit</button>
+          </form>
+
+          <!-- Delete account form (POST) -->
+          <form method="POST" action="/delete-account">
+            <input type="hidden" name="nickname" value="{{ account.nickname }}">
+            <button type="submit" class="delete-button">Delete</button>
+          </form>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+  <!-- Edit Profile button in top-right corner -->
+  <div style="position: absolute; top: 75px; right: 75px;">
+    <a href="/edit-profile"><button>Edit Profile</button></a>
+  </div>
+
+  <!-- Logout button in bottom-right corner -->
+  <div style="position: absolute; bottom: 100px; right: 75px;">
+    <a href="/logout"><button>Logout</button></a>
+  </div>
+
+  <!-- Second Add account button in bottom left corner -->
+  <div style="position: absolute; bottom: 100px; left: 75px;">
+    <a href="/add" class="circle-button">+</a>
+  </div>
 </body>
 </html>

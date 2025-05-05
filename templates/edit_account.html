@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Edit Account</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <h2>Edit Account</h2>
+  <form class="edit-account" method="POST">
+    <input type="hidden" name="original_nickname" value="{{ account.nickname }}">
+    Nickname: <input name="nickname" value="{{ account.nickname }}"><br><br>
+    Type: <input name="type" value="{{ account.type }}"><br><br>
+    Balance: <input name="balance" value="{{ account.balance }}"><br><br>
+    <button type="submit">Save Changes</button>
+    <a href="/dashboard"><button type="button">Cancel</button></a>
+  </form>
+</body>
+</html>

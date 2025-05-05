@@ -1,16 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
   <title>Add Account</title>
 </head>
 <body>
   <h2>Add Account</h2>
-  <form method="POST">
+  <h3>Please enter your account information below.</h3>
+  <h3>Be sure to enter accurate info. Your totals depend on it!</h3>
+  <form class=edit-account method="POST">
     Nickname: <input name="nickname"><br>
     Type: <input name="type"><br>
     Balance: <input name="balance"><br>
     <button type="submit">Add</button>
   </form>
-  <a href="/dashboard">Cancel</a>
+
+  <div class="center-button">
+  <a href="/dashboard"><button>Cancel</button></a>
+  </div>
 </body>
 </html>

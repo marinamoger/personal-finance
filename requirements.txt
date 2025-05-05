@@ -1,0 +1,7 @@
+# run using pip install -r requirements.txt
+flask==3.1.0
+Flask-Cors==5.0.0
+requests==2.31.0
+
+# Use when linking to real bank APIs like Salt Edge
+# selenium==4.10.0
